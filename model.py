@@ -8,13 +8,13 @@ def read_phonebook():
 
             return line.replace("\r", "").replace("\n", "")
 
-def add_contact(contact):
-
-    with open(spravka, 'a', encoding='utf8') as book:
-
-        book.write('\n' + contact)
-
-    return 'Контакт успешно добавлен в справочник!'
+def add_contact():
+    surname = input('Введите фамилию: ')
+    name = input('Введите имя: ')
+    patronymic = input('Введите отчество: ')
+    phone = input('Введите номер телефона: ')
+    with open(spravka, 'a', encoding='utf-8') as file:
+        file.write(f'{surname}\t{name}\t{patronymic}\t{phone}\n')
 
 def find(contact):
 
