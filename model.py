@@ -1,12 +1,9 @@
 spravka = 'phone_book.txt'
 
 def read_phonebook():
-
-    with open(spravka, 'r', encoding='utf8') as book:
-
-        for line in book:
-
-            return line.replace("\r", "").replace("\n", "")
+    with open(spravka, 'r', encoding='utf-8') as file:
+        data = [line.strip().split('\t') for line in file]
+    return data
 
 def add_contact():
     surname = input('Введите фамилию: ')
@@ -16,54 +13,28 @@ def add_contact():
     with open(spravka, 'a', encoding='utf-8') as file:
         file.write(f'{surname}\t{name}\t{patronymic}\t{phone}\n')
 
-def find(contact):
+def find():
+    query = input('Введите запрос: ')
+    with open(spravka, 'r', encoding='utf-8') as file:
+        data = [line.strip().split('\t') for line in file]
+    results = []
+    for contact in data:
+        if any(query.lower() in field.lower() for field in contact):
+            results.append(contact)
+    view.show_phonebook(results)
 
-    with open(spravka, 'r', encoding='utf8') as book:
-
-        count = 0
-
-        for line in book:
-
-            if contact in line:
-
-                count = +1
-
-                return(line.replace("\r", "").replace("\n", ""))
-
-        if count == 0:
-
-            return 'Нет данных, удовлетворяющих введенным значениям!'
-
-
-def delete_contact(contact):
-
-    with open(spravka, 'r', encoding='utf8') as book:
-
-        lines = book.readlines()
-
-    with open(spravka, 'w', encoding='utf8') as book:
-
-        count = 0
-
-        for line in lines:
-
-            if contact in line:
-
-                count = +1
-
-            else:
-
-                book.write(line)
-
-        if count == 0:
-
-            return False
-
-        else:
-
-            del_number = print("Запись в телефонном справочнике удалена!")
-
-            return(del_number)
+def delete():
+    query = input('Введите запрос: ')
+    with open( spravka, 'r', encoding='utf-8') as file:
+        data = [line.strip().split('\t') for line in file]
+    results = []
+    for contact in data:
+        if not any(query.lower() in field.lower() for field in contact):
+            results.append(contact)
+    with open(spravka, 'w', encoding='utf-8') as file:
+        for contact in results:
+            file.write('\t'.join(contact) + '\n')
+    print('Контакты удалены.')
 
 def change_contact(name, new_name):
 
