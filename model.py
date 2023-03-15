@@ -36,18 +36,18 @@ def delete():
             file.write('\t'.join(contact) + '\n')
     print('Контакты удалены.')
 
-def change_contact(name, new_name):
-
-    with open(spravka, 'r', encoding='utf8') as book:
-
-        x = book.read()
-
-    with open(spravka, 'w', encoding='utf8') as book:
-
-        x = x.replace(name, new_name)
-
-        book.write(x)
-
-        change_number = print("Данные изменены")
-
-    return change_number
+def update():
+    query = input('Введите запрос: ')
+    field_to_update = input('Введите поле для изменения: ')
+    new_value = input('Введите новое значение: ')
+    with open(spravka, 'r', encoding='utf-8') as file:
+        data = [line.strip().split('\t') for line in file]
+    results = []
+    for contact in data:
+        if query.lower() in contact[0].lower():
+            contact[data[0].index(field_to_update)] = new_value
+        results.append(contact)
+    with open(spravka, 'w', encoding='utf-8') as file:
+        for contact in results:
+            file.write('\t'.join(contact) + '\n')
+    print('Контакты обновлены.')
