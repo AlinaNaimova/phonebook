@@ -11,14 +11,9 @@ def menu():
           '6. Выйти из программы')
 
 
-def show_phonebook(data):
-    if len(data) == 0:
-        print('-----------------\n'
-              'Телефонный справочник пуст\n'
-              '-----------------')
-        print('-' * 80)
-        print('{:<5} {:<20} {:<20} {:<20} {:<20}'.format('ID', 'Фамилия', 'Имя', 'Отчество', 'Телефон'))
-        print('-' * 80)
-        for i, contact in enumerate(data):
-            print('{:<5} {:<20} {:<20} {:<20} {:<20}'.format(i+1, *contact))
-        print('-----------------')
+def show_phonebook(contacts):
+    if len(contacts) == 0:
+        print("Телефонный справочник пуст!")
+    else:
+        for contact in contacts:
+            print(f"{contact['Фамилия']} {contact['Имя']} {contact['Отчество']}: {contact['Телефон']}")
